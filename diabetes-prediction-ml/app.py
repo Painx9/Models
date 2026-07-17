@@ -5,7 +5,7 @@ from sklearn import svm
 from sklearn.preprocessing import StandardScaler
 
 # Load the saved model and scaler
-model = pickle.load(open('Models/diabetes-prediction-ml/diabetes_model.sav', 'rb'))
+model = pickle.load(open('diabetes-prediction-ml/diabetes_model.sav', 'rb'))
 scaler = pickle.load(open('Models/diabetes-prediction-ml/scaler.sav', 'rb'))
 
 # Set up page configuration
