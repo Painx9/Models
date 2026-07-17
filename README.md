@@ -17,7 +17,8 @@ To keep the repository highly scalable for 10-20+ individual projects, every pro
 │   ├── requirements.txt                # Dependencies (scikit-learn, etc.)
 │   ├── diabetes_model.sav              # Serialized trained SVM Model
 │   ├── scaler.sav                      # Serialized StandardScaler
-│   └── 2-Diabetic Predictions.ipynb    # Jupyter Notebook training file
+│   └── 2-Diabetic Predictions.ipynb    # Jupyter Notebook training file #Credits:** This project was built as part of an educational learning path guided by the [Siddhardhan](https://www.youtube.com/watch?v=xUE7SjVx9bQ&list=PLfFghEzKVmjvuSA67LszN1dZ-Dd_pkus6&index=2).
+|                                       I extended the project by implementing standard file packaging and converting the static notebook into a live Streamlit dashboard.
 │
 ├── 📁 02-Loan-Eligibility-Prediction/  # 💰 Financial Risk Assessment
 
@@ -54,8 +55,8 @@ Every project folder is fully standalone. To run any individual dashboard on you
    ```bash
    streamlit run app.py
    ```
+### 🎓 Learning Credits
+Many of the core models implemented in this portfolio were built as part of an educational learning path guided by tutorials from the data science community on YouTube. I have adapted these core algorithms, standardized their workflows, and scaled them into live production dashboards using Streamlit Cloud.
 
----
-
-## 📜 License
-This portfolio is open-source and available under the [MIT License](LICENSE). Feel free to use, modify, and adapt the code for your own personal or commercial projects!
+### 📄 License
+This repository is open-source and available under the [MIT License](LICENSE). Feel free to use, modify, and adapt the code for your own personal or commercial portfolios!
