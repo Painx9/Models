@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 
 # Load the saved model and scaler
 model = pickle.load(open('diabetes-prediction-ml/diabetes_model.sav', 'rb'))
-scaler = pickle.load(open('Models/diabetes-prediction-ml/scaler.sav', 'rb'))
+scaler = pickle.load(open('diabetes-prediction-ml/scaler.sav', 'rb'))
 
 # Set up page configuration
 st.set_page_config(page_title="Diabetes Prediction Dashboard", layout="centered")
