@@ -1,10 +1,12 @@
 import streamlit as st
 import numpy as np
 import pickle
+from sklearn import svm                      
+from sklearn.preprocessing import StandardScaler
 
 # Load the saved model and scaler
-model = pickle.load(open('diabetes_model.sav', 'rb'))
-scaler = pickle.load(open('scaler.sav', 'rb'))
+model = pickle.load(open('Models/diabetes_model.sav', 'rb'))
+scaler = pickle.load(open('Models/scaler.sav', 'rb'))
 
 # Set up page configuration
 st.set_page_config(page_title="Diabetes Prediction Dashboard", layout="centered")
