@@ -50,7 +50,8 @@ column_config = {
     "Link": st.column_config.LinkColumn(
         "Job Link",
         help="Click to open the job posting",
-        placeholder="No URL provided"
+        placeholder="No URL provided",
+        display_text="Open Link"  # <-- This ensures Streamlit renders the text correctly
     )
 }
 
