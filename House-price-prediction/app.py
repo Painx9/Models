@@ -45,22 +45,9 @@ def user_input_features():
     latitude = st.sidebar.slider("Latitude", 32.5, 42.0, 35.6)
     longitude = st.sidebar.slider("Longitude", -124.3, -114.3, -119.5)
     
-    data = {
-        'MedInc': [med_inc],
-        'HouseAge': [house_age],
-        'AveRooms': [ave_rooms],
-        'AveBedrms': [ave_bedrms],
-        'Population': [population],
-        'AveOccup': [ave_occup],
-        'Latitude': [latitude],
-        'Longitude': [longitude]
-    }
-    features = pd.DataFrame(data)
-    
-    # Safely align feature names/order with what the trained XGBoost model expects
-    if hasattr(model, "feature_names_in_"):
-        features = features[model.feature_names_in_]
-        
+    # Passing data as a numpy array or standard dataframe columns matching the training order
+    data = np.array([[med_inc, house_age, ave_rooms, ave_bedrms, population, ave_occup, latitude, longitude]])
+    features = pd.DataFrame(data, columns=['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude'])
     return features
 
 input_df = user_input_features()
