@@ -14,7 +14,7 @@ st.set_page_config(
 # Load the trained model
 @st.cache_resource
 def load_model():
-    with open("models/xgboost_house_model.pkl", "rb") as file:
+    with open("xgboost_house_model.pkl", "rb") as file:
         model = pickle.load(file)
     return model
 
