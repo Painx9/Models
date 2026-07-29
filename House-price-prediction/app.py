@@ -1,8 +1,9 @@
+from pathlib import Path
+import pickle
 import streamlit as st
+from sklearn.datasets import fetch_california_housing
 import pandas as pd
 import numpy as np
-import pickle
-from sklearn.datasets import fetch_california_housing
 
 # Page Configuration
 st.set_page_config(
@@ -11,10 +12,14 @@ st.set_page_config(
     layout="wide",
 )
 
+# Robust path resolution so Streamlit Cloud can find the model file regardless of working directory
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR / "xgboost_house_model.pkl"
+
 # Load the trained model safely
 @st.cache_resource
 def load_model():
-    with open("xgboost_house_model.pkl", "rb") as file:
+    with open(MODEL_PATH, "rb") as file:
         model = pickle.load(file)
     return model
 
