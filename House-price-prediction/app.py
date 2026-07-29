@@ -1,9 +1,9 @@
-from pathlib import Path
-import pickle
 import streamlit as st
-from sklearn.datasets import fetch_california_housing
 import pandas as pd
 import numpy as np
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from xgboost import XGBRegressor
 
 # Page Configuration
 st.set_page_config(
@@ -12,18 +12,20 @@ st.set_page_config(
     layout="wide",
 )
 
-# Robust path resolution so Streamlit Cloud can find the model file
-BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "xgboost_house_model.pkl"
-
-# Load the trained model safely
+# Train the model dynamically on app load to avoid version/pickle mismatch errors
 @st.cache_resource
-def load_model():
-    with open(MODEL_PATH, "rb") as file:
-        model = pickle.load(file)
+def get_trained_model():
+    housing = fetch_california_housing()
+    X = pd.DataFrame(housing.data, columns=housing.feature_names)
+    Y = housing.target
+    
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
+    
+    model = XGBRegressor()
+    model.fit(X_train, Y_train)
     return model
 
-model = load_model()
+model = get_trained_model()
 
 # App Header
 st.title("🏡 California House Price Prediction Dashboard")
@@ -64,11 +66,10 @@ input_df = user_input_features()
 st.subheader("User Specified Parameters")
 st.write(input_df)
 
-# Prediction execution (passing .to_numpy() prevents XGBoost feature name mismatch errors)
-prediction = model.predict(input_df.to_numpy())
+# Prediction execution
+prediction = model.predict(input_df)
 
 st.subheader("Prediction Result")
-# Target variable is expressed in hundreds of thousands of dollars ($100,000)
 predicted_price_usd = prediction[0] * 100000
 
 st.metric(label="Estimated Median House Value", value=f"${predicted_price_usd:,.2f}")
