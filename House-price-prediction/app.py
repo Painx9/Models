@@ -46,16 +46,21 @@ def user_input_features():
     longitude = st.sidebar.slider("Longitude", -124.3, -114.3, -119.5)
     
     data = {
-        'MedInc': med_inc,
-        'HouseAge': house_age,
-        'AveRooms': ave_rooms,
-        'AveBedrms': ave_bedrms,
-        'Population': population,
-        'AveOccup': ave_occup,
-        'Latitude': latitude,
-        'Longitude': longitude
+        'MedInc': [med_inc],
+        'HouseAge': [house_age],
+        'AveRooms': [ave_rooms],
+        'AveBedrms': [ave_bedrms],
+        'Population': [population],
+        'AveOccup': [ave_occup],
+        'Latitude': [latitude],
+        'Longitude': [longitude]
     }
-    features = pd.DataFrame(data, index=[0])
+    features = pd.DataFrame(data)
+    
+    # Safely align feature names/order with what the trained XGBoost model expects
+    if hasattr(model, "feature_names_in_"):
+        features = features[model.feature_names_in_]
+        
     return features
 
 input_df = user_input_features()
