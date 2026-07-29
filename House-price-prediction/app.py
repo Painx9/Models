@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# Load the trained model
+# Load the trained model safely
 @st.cache_resource
 def load_model():
     with open("xgboost_house_model.pkl", "rb") as file:
