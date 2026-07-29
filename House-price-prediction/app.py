@@ -45,23 +45,17 @@ def user_input_features():
     latitude = st.sidebar.slider("Latitude", 32.5, 42.0, 35.6)
     longitude = st.sidebar.slider("Longitude", -124.3, -114.3, -119.5)
     
-    # Explicitly matching the column names and exact order from sklearn's fetch_california_housing
     data = {
-        'MedInc': [med_inc],
-        'HouseAge': [house_age],
-        'AveRooms': [ave_rooms],
-        'AveBedrms': [ave_bedrms],
-        'Population': [population],
-        'AveOccup': [ave_occup],
-        'Latitude': [latitude],
-        'Longitude': [longitude]
+        'MedInc': med_inc,
+        'HouseAge': house_age,
+        'AveRooms': ave_rooms,
+        'AveBedrms': ave_bedrms,
+        'Population': population,
+        'AveOccup': ave_occup,
+        'Latitude': latitude,
+        'Longitude': longitude
     }
-    features = pd.DataFrame(data)
-    
-    # Ensure columns match the model's expected feature names if available
-    if hasattr(model, "feature_names_in_"):
-        features = features[model.feature_names_in_]
-        
+    features = pd.DataFrame(data, index=[0])
     return features
 
 input_df = user_input_features()
