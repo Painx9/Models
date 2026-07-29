@@ -12,7 +12,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# Robust path resolution so Streamlit Cloud can find the model file regardless of working directory
+# Robust path resolution so Streamlit Cloud can find the model file
 BASE_DIR = Path(__file__).resolve().parent
 MODEL_PATH = BASE_DIR / "xgboost_house_model.pkl"
 
@@ -45,9 +45,17 @@ def user_input_features():
     latitude = st.sidebar.slider("Latitude", 32.5, 42.0, 35.6)
     longitude = st.sidebar.slider("Longitude", -124.3, -114.3, -119.5)
     
-    # Passing data as a numpy array or standard dataframe columns matching the training order
-    data = np.array([[med_inc, house_age, ave_rooms, ave_bedrms, population, ave_occup, latitude, longitude]])
-    features = pd.DataFrame(data, columns=['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude'])
+    data = {
+        'MedInc': [med_inc],
+        'HouseAge': [house_age],
+        'AveRooms': [ave_rooms],
+        'AveBedrms': [ave_bedrms],
+        'Population': [population],
+        'AveOccup': [ave_occup],
+        'Latitude': [latitude],
+        'Longitude': [longitude]
+    }
+    features = pd.DataFrame(data)
     return features
 
 input_df = user_input_features()
@@ -56,8 +64,8 @@ input_df = user_input_features()
 st.subheader("User Specified Parameters")
 st.write(input_df)
 
-# Prediction execution
-prediction = model.predict(input_df)
+# Prediction execution (passing .to_numpy() prevents XGBoost feature name mismatch errors)
+prediction = model.predict(input_df.to_numpy())
 
 st.subheader("Prediction Result")
 # Target variable is expressed in hundreds of thousands of dollars ($100,000)
